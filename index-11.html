@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Nayem ❤️ Ya Ruhi</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Poppins:wght@300;400;500;600&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+body{min-height:100vh;background:#090107;color:#fff;overflow:hidden;font-family:Poppins,sans-serif}
+body:before{content:"";position:fixed;inset:0;background:radial-gradient(circle at 50% 20%,#7d183d55,transparent 45%),radial-gradient(circle at 15% 85%,#ff4f8a22,transparent 35%);pointer-events:none}
+canvas{position:fixed;inset:0;pointer-events:none}
+.wrap{position:relative;z-index:2;min-height:100vh;display:grid;place-items:center;padding:20px}
+.card{width:min(92vw,480px);padding:42px 28px;border:1px solid #ffffff20;border-radius:32px;text-align:center;background:#ffffff0c;backdrop-filter:blur(22px);box-shadow:0 30px 100px #000b,0 0 50px #ff477b18}
+.intro{font-size:12px;letter-spacing:4px;text-transform:uppercase;color:#ff9ab8}
+h1{font-family:"Cormorant Garamond",serif;font-size:54px;line-height:1;margin:15px 0 8px}
+.name{color:#ff91b3;text-shadow:0 0 25px #ff477b66}
+.sub{color:#f7dfe7;line-height:1.8;font-size:14px;margin:20px auto;max-width:350px}
+.question{font-family:"Cormorant Garamond",serif;font-size:29px;margin-top:24px}
+.buttons{display:flex;gap:14px;justify-content:center;margin-top:24px}
+button{font:600 15px Poppins;border:0;border-radius:999px;padding:13px 28px;cursor:pointer;transition:.3s}
+.yes{color:white;background:linear-gradient(135deg,#ff3f78,#ff8daf);box-shadow:0 10px 30px #ff3f7850}
+.yes:hover{transform:translateY(-2px) scale(1.04)}
+.no{color:#fff;background:#ffffff14;border:1px solid #ffffff20}
+.heart{font-size:56px;animation:pulse 1.3s infinite;filter:drop-shadow(0 0 22px #ff3f78)}
+.small{font-size:12px;color:#dcb9c4;margin-top:25px}
+.hidden{display:none}
+.success h1{font-size:58px}
+@keyframes pulse{50%{transform:scale(1.15)}}
+@keyframes rise{to{transform:translateY(-110vh) rotate(360deg);opacity:0}}
+.petal{position:fixed;bottom:-30px;z-index:1;animation:rise linear forwards;pointer-events:none}
+</style>
+</head>
+<body>
+<canvas id="stars"></canvas>
+<div class="wrap">
+<section class="card" id="ask">
+<div class="intro">A little question from</div>
+<h1>Panda 🐼 <span class="name">♡</span></h1>
+<p class="sub" id="typing"></p>
+<div class="heart">❤️</div>
+<div class="question">My Sparrow 🫶🏻🕊️🎀, will you marry me?</div>
+<div class="buttons">
+<button class="yes" id="yes">Yes, I will ❤️</button>
+<button class="no" id="no">No 🙈</button>
+</div>
+<p class="small">Made with love, just for My Sparrow.</p>
+</section>
+
+<section class="card success hidden" id="success">
+<div class="intro">A beautiful beginning ✨</div>
+<div class="heart">💖</div>
+<h1>Yaaaaay,<br><span class="name">My Sparrow 🫶🏻🕊️🎀!</span></h1>
+<p class="sub">Then it's official. From today, let's turn every little moment into a beautiful memory together.</p>
+
+<div class="question">You + Me = Forever ♾️</div>
+<p class="small">Forever yours — Panda 🐼❤️</p>
+</section>
+</div>
+
+<script>
+const text="Some people arrive quietly… and somehow make ordinary days feel a little more beautiful. You are the one who makes my heart feel at home.";
+let i=0;function type(){if(i<text.length){typing.textContent+=text[i++];setTimeout(type,28)}}type();
+
+const ask=document.getElementById("ask"),success=document.getElementById("success");
+yes.onclick=()=>{ask.classList.add("hidden");success.classList.remove("hidden");burst();};
+no.onmouseenter=()=>{no.style.transform=`translate(${Math.random()*220-110}px,${Math.random()*130-65}px)`};
+
+function petal(){let e=document.createElement("div");e.className="petal";e.textContent=["🌹","❤️","💗","✨"][Math.floor(Math.random()*4)];e.style.left=Math.random()*100+"vw";e.style.fontSize=12+Math.random()*20+"px";e.style.animationDuration=4+Math.random()*5+"s";document.body.appendChild(e);setTimeout(()=>e.remove(),9000)}
+setInterval(petal,650);
+
+function burst(){for(let n=0;n<55;n++)setTimeout(petal,n*35)}
+
+const c=document.getElementById("stars"),x=c.getContext("2d");let stars=[];
+function resize(){c.width=innerWidth;c.height=innerHeight;stars=Array.from({length:100},()=>({x:Math.random()*c.width,y:Math.random()*c.height,r:Math.random()*1.5,a:Math.random()}))}
+function draw(){x.clearRect(0,0,c.width,c.height);stars.forEach(s=>{s.a+=.01;x.globalAlpha=.2+.25*Math.sin(s.a);x.beginPath();x.arc(s.x,s.y,s.r,0,7);x.fillStyle="#fff";x.fill()});requestAnimationFrame(draw)}
+resize();addEventListener("resize",resize);draw();
+</script>
+</body>
+</html>
